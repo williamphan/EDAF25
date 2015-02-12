@@ -69,7 +69,6 @@ public class DFS {
 
     private static <V, E> boolean pathExists(Graph.Vertex<V, E> v, Graph.Vertex<V, E> u) {
         Iterator<Graph.Edge<V, E>> itr = v.iterator();
-        boolean result = false;
         while (itr.hasNext()) {
             System.out.println("Vector: " + v.toString());
             Graph.Edge<V, E> temp = itr.next();
@@ -81,12 +80,14 @@ public class DFS {
                     return true;
                 } else {
                     System.out.println("Continue searching...");
-                    result = pathExists(temp.destination(), u);
+                    if(pathExists(temp.destination(), u)){
+                        return true;
+                    }
                 }
             }
         }
         System.out.println("No destination found");
-        return result;
+        return false;
     }
 
     public static <V, E> List<Graph.Vertex<V, E>> findPath(Graph<V, E> g,

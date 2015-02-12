@@ -26,10 +26,28 @@ public class DFS_With_Visitors_Applications {
 	public static <V,E> boolean pathExists(Graph<V,E> g,
 							Graph.Vertex<V,E> v,
 							Graph.Vertex<V,E> u) {
-
-		return false;
+		pathExistsVisitor<V, E> pev = new pathExistsVisitor<V, E>();
+		g.unvisit();
+		if (v.equals(u)) return true;
+		DFS.dfs(v, pev);
+		return pev.path;
 	}
 	
+	public static class pathExistsVisitor<V, E> extends VertexVisitor<V,E> {
+		private boolean path = false;
+		
+		public pathExistsVisitor(){
+			super();
+		}
+		
+		public boolean isDone() {
+			return path;
+		}
+		
+		public void postVisit(Graph.Vertex<V, E> v){
+			
+		}
+	}
 	static class CountingVisitor<V,E> extends VertexVisitor<V,E> {
 		private int count;
 		

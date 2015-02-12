@@ -2,6 +2,7 @@ package dfs_applications;
 
 import graph.Graph;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -63,24 +64,24 @@ public class DFS {
         if (v.equals(u)) {
             return true;
         }
-        System.out.println("-------------------START-------------------");
+        System.out.println("-----START-----");
         return pathExists(v, u);
     }
 
     private static <V, E> boolean pathExists(Graph.Vertex<V, E> v, Graph.Vertex<V, E> u) {
+        v.visit();
         Iterator<Graph.Edge<V, E>> itr = v.iterator();
         while (itr.hasNext()) {
             System.out.println("Vector: " + v.toString());
             Graph.Edge<V, E> temp = itr.next();
             System.out.println("Edge link to: " + temp.destination().toString());
             if (!temp.destination().isVisited()) {
-                temp.destination().visit();
                 if (temp.destination().equals(u)) {
                     System.out.println("Found destination");
                     return true;
                 } else {
                     System.out.println("Continue searching...");
-                    if(pathExists(temp.destination(), u)){
+                    if (pathExists(temp.destination(), u)) {
                         return true;
                     }
                 }
@@ -92,9 +93,52 @@ public class DFS {
 
     public static <V, E> List<Graph.Vertex<V, E>> findPath(Graph<V, E> g,
         Graph.Vertex<V, E> v, Graph.Vertex<V, E> u) {
-        return null;
+        ArrayList<Graph.Vertex<V, E>> list = new ArrayList<Graph.Vertex<V, E>>();
+        g.unvisit();
+        list.add(v);
+        if (!v.equals(u)) {
+            System.out.println("-----START-----");
+            findPath(v, u, list);
+        }
+        return list;
     }
 
-
+    private static <V, E> boolean findPath(Graph.Vertex<V, E> v, Graph.Vertex<V, E> u,
+        ArrayList<Graph.Vertex<V, E>> list) {
+        v.visit();
+        System.out.print(list.size() + " [");
+        String op = "";
+        if (list.size() > 1) {
+            for (Graph.Vertex<V, E> a : list) {
+                op = op + a.toString() + ", ";
+            }
+            op = op.substring(0, op.length() - 2);
+        } else {
+            System.out.print(list.get(0).toString());
+        }
+        System.out.print(op);
+        System.out.println("]");
+        Iterator<Graph.Edge<V, E>> itr = v.iterator();
+        while (itr.hasNext()) {
+            System.out.println("Vector: " + v.toString());
+            Graph.Edge<V, E> temp = itr.next();
+            System.out.println("Edge link to: " + temp.destination().toString());
+            if (!temp.destination().isVisited()) {
+                list.add(temp.destination());
+                if (temp.destination().equals(u)) {
+                    System.out.println("Found destination");
+                    return true;
+                } else {
+                    System.out.println("Continue searching...");
+                    if (findPath(temp.destination(), u, list)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        System.out.println("No destination found");
+        list.clear();
+        return false;
+    }
 }
 

@@ -42,10 +42,7 @@ public class DFS {
 
     public static <V, E> int nbrOfComponents(Graph<V, E> g) {
         int sum = 0;
-        if (isConnected(g)) {
-            return 1;
-        } else {
-            g.unvisit();
+        g.unvisit();
             Iterator<Graph.Vertex<V, E>> itr = g.iterator();
             while (itr.hasNext()) {
                 Graph.Vertex<V, E> temp = itr.next();
@@ -54,7 +51,6 @@ public class DFS {
                     sum++;
                 }
             }
-        }
         return sum;
     }
 

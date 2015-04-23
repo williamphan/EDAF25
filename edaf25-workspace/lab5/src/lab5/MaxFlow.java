@@ -76,16 +76,18 @@ public class MaxFlow {
             }
         }
 
+
         int flow = Integer.MAX_VALUE;
+        int u;
         //Letar efter minsta talet (flaskhalsen)
         for (int v = amountOfNodes - 1; v != 0; v = connected[v]) {
-            int u = connected[v];
+            u = connected[v];
             flow = Math.min(flow, res[u][v]);
         }
 
         //Uppdatera res-matrisen
         for (int v = amountOfNodes - 1; v != 0; v = connected[v]) {
-            int u = connected[v];
+            u = connected[v];
             res[u][v] -= flow;
             res[v][u] -= flow;
         }

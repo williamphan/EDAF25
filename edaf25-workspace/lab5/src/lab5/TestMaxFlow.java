@@ -3,12 +3,12 @@ package lab5;
 public class TestMaxFlow {
 
 	public static void main(String[] args) {
-		MaxFlow maxFlow = new MaxFlow("small.txt");
-		int[][] test = maxFlow.flowMatrix;
-		for (int i = 0; i < test.length; i++) {
-			for (int j = 0; j < test.length; j++) {
-				System.out.println(i + " " + j + " " + test[i][j]);
-			}
-		}
+		MaxFlow maxFlow1 = new MaxFlow("edaf25-workspace/lab5/small.txt");
+		MaxFlow maxFlow2 = new MaxFlow("edaf25-workspace/lab5/sixnodes.txt");
+		MaxFlow maxFlow3 = new MaxFlow("edaf25-workspace/lab5/rail.txt");
+
+		System.out.println("Max flow: " + maxFlow1.maxFlow());
+		System.out.println("Max flow: " + maxFlow2.maxFlow());
+		System.out.println("Max flow: " + maxFlow3.maxFlow());
 	}
 }

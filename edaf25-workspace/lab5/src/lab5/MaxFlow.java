@@ -24,6 +24,7 @@ public class MaxFlow {
         flowMatrix = new int[amountOfNodes][amountOfNodes];
 
         while (scanner.hasNext()) {
+            // --> int x... = scanner.nextInt() <---
             flowMatrix[scanner.nextInt()][scanner.nextInt()] = scanner.nextInt();
         }
         scanner.close();
@@ -89,7 +90,7 @@ public class MaxFlow {
         for (int v = amountOfNodes - 1; v != 0; v = connected[v]) {
             u = connected[v];
             res[u][v] -= flow;
-            res[v][u] -= flow;
+            res[v][u] += flow;
         }
         return flow;
     }
